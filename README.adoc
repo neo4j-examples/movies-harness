@@ -1,0 +1,6 @@
+= Movies harness
+
+This repository defines common end-to-end tests.
+
+These end-to-end tests are intended for use by the projects in this organization,
+based on the movies dataset.
