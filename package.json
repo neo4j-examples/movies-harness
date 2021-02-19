@@ -1,0 +1,19 @@
+{
+  "name": "movies-neo4j-harness",
+  "version": "0.0.1",
+  "description": "End-to-end test harness for Neo4j Movies applications",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neo4j-examples/movies-harness.git"
+  },
+  "author": "Neo4j DevRel <devrel@neo4j.com>",
+  "license": "Apache-2.0",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/neo4j-examples/movies-harness/issues"
+  },
+  "homepage": "https://github.com/neo4j-examples/movies-harness#readme",
+  "devDependencies": {
+    "cypress": "^6.5.0"
+  }
+}
