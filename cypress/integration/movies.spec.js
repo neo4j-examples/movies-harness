@@ -69,4 +69,30 @@ context('Neo4j Movies app', () => {
                 });
         });
     })
+
+    defaultMovieTitles.forEach((movie , index)=> {
+        it(`should be able to vote in "${movie}"`, () => {
+            cy.get(`#votes${index}`)
+                .then($votes => {
+                    const originalVotes = parseInt($votes.text())
+
+                    $votes.click();
+
+                    cy.get('#title').should('have.text', movie);
+             
+                    cy.get('#vote')
+                        .click()
+                        .then(() => {
+                            cy.get(`#votes${index}`)
+                                .should($votesNow => {
+                                    expect(parseInt($votesNow.text())).greaterThan(originalVotes);
+                                }).then(() => {
+                                    cy.get('#title').should('have.text', movie);
+                                });
+                            
+                        });
+                });
+        });
+    })
+
 });
