@@ -3,4 +3,12 @@
 This repository defines common end-to-end tests.
 
 These end-to-end tests are intended for use by the projects in this organization,
-based on the movies dataset.
+based on the movies data set.
+
+== Downstream builds
+
+A limited subset of repository builds are triggered when a change is made to this repository.
+If you want to add your repository in the list, please make sure of the following points:
+
+ - the repository must be public
+ - the repository must be in https://github.com/neo4j-examples[`neo4j-examples`] organization
