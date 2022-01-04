@@ -16,3 +16,22 @@ jobs:
       with:
         node-version: 16.x
     - run: npm ci
+  downstream-update:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        movie-example:
+          - movies-python-bolt
+          - movies-java-bolt
+          - movies-dotnetcore-bolt
+          - movies-golang-bolt
+          - movies-javascript-bolt
+    steps:
+      - name: Trigger build of github.com/neo4j-examples/${{ matrix.movie-example }}
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: neo4j-examples/${{ matrix.movie-example }}
+          event-type: movie-harness-change
+          token: ${{ secrets.TOKEN }}
+
