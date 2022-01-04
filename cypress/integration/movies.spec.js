@@ -79,17 +79,17 @@ context('Neo4j Movies app', () => {
                     $votes.click();
 
                     cy.get('#title').should('have.text', movie);
-             
+
                     cy.get('#vote')
                         .click()
                         .then(() => {
-                            cy.get(`#votes${index}`)
+                            cy.get(`#votes${index}`, {timeout: 30000})
                                 .should($votesNow => {
                                     expect(parseInt($votesNow.text())).greaterThan(originalVotes);
                                 }).then(() => {
                                     cy.get('#title').should('have.text', movie);
                                 });
-                            
+
                         });
                 });
         });
