@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: 16.x
     - run: npm ci
-  downstream-update:
+  downstream-build:
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -28,7 +28,9 @@ jobs:
           - movies-golang-bolt
           - movies-javascript-bolt
     steps:
-      - name: Trigger build of github.com/neo4j-examples/${{ matrix.movie-example }}
+      - name: Unfold this
+        run: echo 'Check https://github.com/neo4j-examples/${{ matrix.movie-example }}/actions'
+      - name: Trigger build
         uses: peter-evans/repository-dispatch@v1
         with:
           repository: neo4j-examples/${{ matrix.movie-example }}
