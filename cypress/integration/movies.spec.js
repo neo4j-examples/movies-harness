@@ -70,27 +70,22 @@ context('Neo4j Movies app', () => {
         });
     })
 
-    it.skip(`should be able to vote for a movie`, () => { // too flaky
-        const index = 1;
-        const movie = defaultMovieTitles[index];
-
-        cy.get(`#votes${index}`)
-            .then($votes => {
-                const originalVotes = parseInt($votes.text())
-
-                $votes.click();
-
-                cy.get('#title').should('have.text', movie);
-
-                cy.get('#vote')
-                    .click()
-                    .then(() => {
-                        cy.get(`#votes${index}`, {timeout: 30000})
-                            .should($votesNow => {
-                                expect(parseInt($votesNow.text())).greaterThan(originalVotes);
-                            })
-                    });
-            });
+    defaultMovieTitles.forEach((movie, index) => {
+        it(`should be able to vote for ${movie}`, () => {
+            cy.get(`#votes${index}`)
+                .click()
+                .invoke('text')
+                .then(Number)
+                .then((previousVoteCount) => {
+                    cy.get('#vote').click();
+                    cy.get('#title').should('have.text', movie);
+                    cy.get(`#votes${index}`).should(($count) => {
+                        const newVoteCount = Number($count[0].innerText)
+                        expect(newVoteCount, 'new value').to.be.greaterThan(previousVoteCount)
+                    })
+                })
+        });
     });
+
 });
 
