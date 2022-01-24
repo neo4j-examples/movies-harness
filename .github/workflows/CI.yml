@@ -23,17 +23,14 @@ jobs:
       matrix:
         movie-example:
           - movies-python-bolt
-          - movies-java-bolt
-          - movies-dotnetcore-bolt
-          - movies-golang-bolt
-          - movies-javascript-bolt
     steps:
       - name: Unfold this
-        run: echo 'Check https://github.com/neo4j-examples/${{ matrix.movie-example }}/actions'
+        run: echo 'Check https://github.com/fbiville/${{ matrix.movie-example }}/actions'
       - name: Trigger build
         uses: peter-evans/repository-dispatch@v1
         with:
-          repository: neo4j-examples/${{ matrix.movie-example }}
+          repository: fbiville/${{ matrix.movie-example }}
           event-type: movie-harness-change
           token: ${{ secrets.TOKEN }}
+          client-payload: '{"sha": "${{ github.sha }}"}'
 
