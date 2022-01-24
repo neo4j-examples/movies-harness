@@ -36,4 +36,4 @@ jobs:
           repository: neo4j-examples/${{ matrix.movie-example }}
           event-type: movie-harness-change
           token: ${{ secrets.TOKEN }}
-
+          client-payload: '{"sha": "${{ github.sha }}"}'
