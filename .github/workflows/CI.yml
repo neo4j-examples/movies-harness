@@ -27,6 +27,7 @@ jobs:
           - movies-dotnetcore-bolt
           - movies-golang-bolt
           - movies-javascript-bolt
+          - movies-java-spring-data-neo4j
     steps:
       - name: Unfold this
         run: echo 'Check https://github.com/neo4j-examples/${{ matrix.movie-example }}/actions'
