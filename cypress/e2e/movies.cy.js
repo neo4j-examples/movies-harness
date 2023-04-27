@@ -75,15 +75,17 @@ context('Neo4j Movies app', () => {
         const movie = defaultMovieTitles[index];
 
         cy.get(`#votes${index}`)
-            .click()
+            .as('voteDisplay')
+            .click();
+        cy.get('#title').should('have.text', movie);
+        cy.get('@voteDisplay')
             .invoke('text')
             .then(Number)
-            .then((previousVoteCount) => {
+            .then((previousVotes) => {
                 cy.get('#vote').click();
-                cy.get('#title').should('have.text', movie);
-                cy.get(`#votes${index}`).then(($count) => {
-                    const newVoteCount = Number($count[0].innerText)
-                    expect(newVoteCount, 'new value').to.be.greaterThan(previousVoteCount)
+                cy.get('@voteDisplay').should(($count) => {
+                    const newVotes = Number($count[0].innerText)
+                    expect(newVotes, 'new value').to.be.greaterThan(previousVotes)
                 })
             })
     });
