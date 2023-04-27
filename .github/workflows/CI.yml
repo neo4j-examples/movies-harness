@@ -32,7 +32,7 @@ jobs:
       - name: Unfold this
         run: echo 'Check https://github.com/neo4j-examples/${{ matrix.movie-example }}/actions'
       - name: Trigger build
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v2
         with:
           repository: neo4j-examples/${{ matrix.movie-example }}
           event-type: movie-harness-change
