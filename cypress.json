@@ -1,7 +1,0 @@
-{
-  "retries": 10, // Number of times to retry a failed test
-  "defaultCommandTimeout": 10000, // Set the default command timeout to 10 seconds
-  "watchForFileChanges": false, // Disable file watching to prevent issues in CI environments
-  "waitForRequestTimeout": 30000, // Set the time to wait for a network request to complete to 30 seconds
-  "responseTimeout": 60000 // Set the maximum time to wait for a response to 60 seconds
-}
