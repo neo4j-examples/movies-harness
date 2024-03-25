@@ -1,0 +1,33 @@
+# This workflow has access to secrets. Therefore, it shouldn't run execute code.
+name: Downstream Build
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+
+jobs:
+  downstream-build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: build
+    strategy:
+      matrix:
+        movie-example:
+          - movies-python-bolt
+          - movies-java-bolt
+          - movies-dotnetcore-bolt
+          - movies-golang-bolt
+          - movies-javascript-bolt
+          - movies-java-spring-data-neo4j
+    steps:
+      - name: Unfold this
+        run: echo 'Check https://github.com/neo4j-examples/${{ matrix.movie-example }}/actions'
+      - name: Trigger build
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          repository: neo4j-examples/${{ matrix.movie-example }}
+          event-type: movie-harness-change
+          token: ${{ secrets.TOKEN }}
+          client-payload: '{"sha": "${{ github.sha }}"}'
