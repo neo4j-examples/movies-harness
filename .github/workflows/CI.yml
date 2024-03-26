@@ -1,16 +1,31 @@
-# This workflow has access to secrets. Therefore, it shouldn't run execute code.
-name: Downstream Build
+name: CI
 
 on:
-  workflow_run:
-    workflows: ["Build"]
-    types:
-      - completed
+  push:
+    branches: [ master ]
+  pull_request_target:
+    branches: [ master ]
+
+permissions:
+  contents: read
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+        ref: ${{ github.event.pull_request.head.sha }}
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+    - run: npm ci
   downstream-build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: build
     strategy:
       matrix:
         movie-example:
