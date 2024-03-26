@@ -2,15 +2,29 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ ci/fix-downstream-trigger-for-prs ]
+  pull_request_target:
+    branches: [ ci/fix-downstream-trigger-for-prs ]
+
+permissions:
+  contents: read
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print environment
+        run: printenv
+      - name: Print version
+        run: "echo Version: 1"
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+        ref: ${{ github.event.pull_request.head.sha }}
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
